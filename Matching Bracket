@@ -1,0 +1,29 @@
+#Matching brackets
+def is_matched(expression):
+    #print (expression)
+    l=[]
+    d_brac = {'}':'{',']':'[',')':'('}
+    d_close = [']','}',')']
+    d_open=['[','{','(']
+    s=0
+    for i in expression:
+        if i in d_close and len(l)==0 :
+            return False
+        else:
+            if i in d_open:
+                l.append(i)
+                s = len(l)
+            else:
+                if (d_brac[i] != l[len(l)-1]) :
+                    return False
+                l.pop(len(l)-1)
+    if(len(l)==0):
+        return True
+
+t = int(input().strip())
+for a0 in range(t):
+    expression = input().strip()
+    if is_matched(expression) == True:
+        print("YES")
+    else:
+        print("NO")
