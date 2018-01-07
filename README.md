@@ -1,2 +1,2 @@
-# Python_Algos
+# Python_Matrix_Rotation
 Python codes
