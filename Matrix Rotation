@@ -1,0 +1,65 @@
+#Matrix Rotation in Python - Hackerrank
+#!/bin/python3
+import sys
+
+def rotate(l, n):
+    n= n%len(l)
+    return l[-n:] + l[:-n]
+
+def print_matrix(matrix):
+    for i in matrix:
+        print(" ".join(str(x) for x in i))
+     
+def matrixRotation(matrix,r):
+    # Complete this function
+    mat_len = len(matrix[0])
+    mat_r = list(map(list,zip(*matrix)))
+    c_f = 0
+    c_l = mat_len-1
+    c_r = len(matrix)-1
+    c_l_r = len(mat_r[0])
+    mat_new = [[0]*(c_l+1) for i in range(0,c_r+1)]
+    #print(mat_new)
+    l=[]
+    count = 0
+    c=0
+    g=0
+    if(mat_len%2==0):
+        g=mat_len
+    else:
+        g=mat_len-1
+    
+    for i in range(0,int(g/2)):
+        l=mat_r[c_f][count:c_l_r-count] + matrix[c_r][count+1:c_l] + mat_r[c_l][count:c_l_r-count][::-1]+matrix[c_f][count+1:c_l][::-1]
+        #print(l)
+        new_l = rotate(l,r)
+        #print(new_l)
+        count_new_l=0
+        for j in range(count,c_r+1):
+            mat_new[j][count] = new_l[count_new_l]
+            count_new_l+=1
+        for j in range(count+1,c_l+1):
+            mat_new[c_r][j] = new_l[count_new_l]
+            count_new_l+=1
+        for j in range(c_r-1,count,-1):
+            mat_new[j][c_l] = new_l[count_new_l]
+            count_new_l+=1
+        for j in range(c_l,count,-1):
+            mat_new[count][j] = new_l[count_new_l]
+            count_new_l+=1
+        count+=1
+        c_f+=1
+        c_l-=1
+        c_r-=1
+        if(c_f-1 == c_l or count-1 == c_r):
+            break
+    print_matrix(mat_new)
+        
+if __name__ == "__main__":
+    m, n, r = input().strip().split(' ')
+    m, n, r = [int(m), int(n), int(r)]
+    matrix = []
+    for matrix_i in range(m):
+       matrix_t = [int(matrix_temp) for matrix_temp in input().strip().split(' ')]
+       matrix.append(matrix_t)
+    matrixRotation(matrix,r)
