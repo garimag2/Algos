@@ -1,0 +1,17 @@
+#!/bin/python3
+import math
+import sys
+
+def powerSum(X, N,num):
+    # Complete this function
+    if(pow(num,N)<X):
+        return powerSum(X,N,num+1) + powerSum(X-(pow(num,N)),N,num+1)
+    if(pow(num,N)==X):
+        return 1
+    else:
+        return 0         
+if __name__ == "__main__":
+    X = int(input().strip())
+    N = int(input().strip())
+    result = powerSum(X, N,1)
+    print(result)
